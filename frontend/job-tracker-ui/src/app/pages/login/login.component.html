@@ -1,0 +1,14 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2>Job Tracker</h2>
+    <p class="subtitle">Sign in to your account</p>
+
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+    <input type="email" placeholder="Email" [(ngModel)]="email" />
+    <input type="password" placeholder="Password" [(ngModel)]="password" />
+    <button (click)="onLogin()">Login</button>
+
+    <p class="link">Don't have an account? <a routerLink="/register">Register</a></p>
+  </div>
+</div>

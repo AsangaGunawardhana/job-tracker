@@ -1,0 +1,15 @@
+<div class="register-container">
+  <div class="register-box">
+    <h2>Job Tracker</h2>
+    <p class="subtitle">Create your account</p>
+
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+    <input type="text" placeholder="Full Name" [(ngModel)]="name" />
+    <input type="email" placeholder="Email" [(ngModel)]="email" />
+    <input type="password" placeholder="Password" [(ngModel)]="password" />
+    <button (click)="onRegister()">Register</button>
+
+    <p class="link">Already have an account? <a routerLink="/login">Login</a></p>
+  </div>
+</div>

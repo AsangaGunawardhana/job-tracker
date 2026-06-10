@@ -1,0 +1,81 @@
+<div class="dashboard">
+  <div class="header">
+    <h2>Job Tracker</h2>
+    <div class="header-actions">
+      <button class="btn-add" (click)="showForm = !showForm">+ Add Job</button>
+      <button class="btn-logout" (click)="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="form-box" *ngIf="showForm">
+    <h3>Add New Job</h3>
+    <input type="text" placeholder="Company" [(ngModel)]="newJob.company" />
+    <input type="text" placeholder="Position" [(ngModel)]="newJob.position" />
+    <select [(ngModel)]="newJob.status">
+      <option>Applied</option>
+      <option>Interview</option>
+      <option>Offer</option>
+      <option>Rejected</option>
+    </select>
+    <input type="text" placeholder="Notes" [(ngModel)]="newJob.notes" />
+    <button class="btn-save" (click)="addJob()">Save Job</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <span>Total</span>
+      <strong>{{ jobs.length }}</strong>
+    </div>
+    <div class="stat-card applied">
+      <span>Applied</span>
+      <strong>{{ jobs | statusCount:'Applied' }}</strong>
+    </div>
+    <div class="stat-card interview">
+      <span>Interview</span>
+      <strong>{{ jobs | statusCount:'Interview' }}</strong>
+    </div>
+    <div class="stat-card offer">
+      <span>Offer</span>
+      <strong>{{ jobs | statusCount:'Offer' }}</strong>
+    </div>
+    <div class="stat-card rejected">
+      <span>Rejected</span>
+      <strong>{{ jobs | statusCount:'Rejected' }}</strong>
+    </div>
+  </div>
+
+  <table *ngIf="jobs.length > 0">
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Position</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Notes</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+   <tbody>
+  <tr *ngFor="let job of jobs">
+    <td>{{ job.company }}</td>
+    <td>{{ job.position }}</td>
+    <td>
+      <select class="status-select" [ngClass]="job.status.toLowerCase()"
+        [value]="job.status" (change)="updateStatus(job._id, $any($event.target).value)">
+        <option>Applied</option>
+        <option>Interview</option>
+        <option>Offer</option>
+        <option>Rejected</option>
+      </select>
+    </td>
+    <td>{{ job.appliedDate | date:'mediumDate' }}</td>
+    <td>{{ job.notes }}</td>
+    <td><button class="btn-delete" (click)="deleteJob(job._id)">Delete</button></td>
+  </tr>
+</tbody>
+  </table>
+
+  <div class="empty" *ngIf="jobs.length === 0">
+    No jobs added yet. Click "+ Add Job" to get started.
+  </div>
+</div>
